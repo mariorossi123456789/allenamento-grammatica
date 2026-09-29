@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prova di allenamento C – Grammatica e lessico</title>
+<style>
+:root{--bg:#f6f1e7;--ink:#1e1c19;--mute:#7a7367;--card:#fffdf8;--line:#ddd3c0;--acc:#2b6cb0;--ok:#2f8f5b;--ko:#c62d3a;--okb:#e3f3ea;--kob:#fbe6e8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17161a;--ink:#f3efe6;--mute:#9d978a;--card:#232127;--line:#3a3740;--acc:#6fb0f0;--ok:#63c98f;--ko:#f0666f;--okb:#1f3a2c;--kob:#40222a}}
+:root[data-theme="dark"]{--bg:#17161a;--ink:#f3efe6;--mute:#9d978a;--card:#232127;--line:#3a3740;--acc:#6fb0f0;--ok:#63c98f;--ko:#f0666f;--okb:#1f3a2c;--kob:#40222a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;font-size:clamp(16px,1.7vw,19px);line-height:1.5}
+.w{max-width:860px;margin:0 auto;padding:16px}
+h1{font-size:clamp(24px,4vw,36px);margin:.2em 0}
+.sub{color:var(--mute);margin:0 0 1em}
+.q{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:14px 16px;margin:14px 0}
+.q.ok{border-color:var(--ok);background:var(--okb)}.q.ko{border-color:var(--ko);background:var(--kob)}
+.h{display:flex;justify-content:space-between;gap:8px;font-size:.8em;color:var(--mute);margin-bottom:6px}
+.t{font-weight:700;margin-bottom:8px}
+label{display:block;padding:6px 8px;border-radius:8px;cursor:pointer}
+label:hover{background:var(--line)}
+input{margin-right:8px;accent-color:var(--acc)}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+th{font-size:.85em}td:first-child{text-align:left}
+tr.r-ko td:first-child{color:var(--ko)}tr.r-ok td:first-child{color:var(--ok)}
+.w2{margin-top:8px;font-size:.92em;color:var(--mute)}
+.w2 b{color:var(--ink)}
+button{font:inherit;background:var(--acc);color:#fff;border:0;border-radius:10px;padding:.6em 1.4em;cursor:pointer}
+#res{display:none;background:var(--card);border:2px solid var(--acc);border-radius:14px;padding:14px 16px;margin:14px 0}
+#res .big{font-size:1.8em;font-weight:700}
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden;margin:2px 0 10px}.bar i{display:block;height:100%;background:var(--acc)}
+</style>
+</head>
+<body>
+<div class="w">
+<h1>Prova di allenamento C</h1>
+<p class="sub">Grammatica e lessico · classe terza · 30 punti. Rispondi a tutte le domande, poi premi «Consegna».</p>
+<div id="f"></div>
+<button id="go">Consegna</button>
+<div id="res"></div>
+</div>
+<script>
+var P=['Parte 1 · La frase','Parte 2 · I complementi','Parte 3 · La forma del verbo','Parte 4 · Piccole parole','Parte 5 · Lessico'];
+var Q=[
+{k:'s',p:0,q:'In quale delle seguenti frasi il predicato è verbale?',o:['Il lago sembra un grande specchio.','La soluzione è semplice.','Il mio quaderno è nello zaino.','Quella strada rimane pericolosa.'],c:2,w:'<b>È nello zaino</b> = si trova nello zaino: predicato verbale. Le altre hanno copula (sembra, è, rimane) + nome del predicato.'},
+{k:'s',p:0,q:'Leggi la frase: «Nel bosco vicino a casa nostra vivono dei cervi.» Solo una delle affermazioni è vera. Quale?',o:['«dei cervi» è soggetto partitivo.','«dei cervi» è complemento oggetto partitivo.','Il soggetto è sottinteso.','«a casa nostra» è il soggetto.'],c:0,w:'Chi vive nel bosco? <b>Dei cervi</b> = alcuni cervi: è il soggetto, e ha forma partitiva. Il verbo <i>vivono</i> è plurale e si accorda con lui.'},
+{k:'s',p:1,q:'In quale frase è presente un complemento di termine?',o:['Ho regalato un libro a Chiara.','Sono tornato da Chiara con il treno.','Il libro di Chiara è sul tavolo.','Ho visto Chiara al parco.'],c:0,w:'<b>A Chiara</b> risponde a «a chi?». In <i>ho visto Chiara</i> Chiara è oggetto, in <i>di Chiara</i> è specificazione.'},
+{k:'s',p:1,q:'In quale frase è presente una causa efficiente?',o:['La spiaggia fu allagata dall\'alta marea.','Il romanzo è stato scritto da un giovane autore.','Vengo da un piccolo paese.','Il cane fu chiamato dal padrone.'],c:0,w:'<b>Dall\'alta marea</b> è una forza naturale (una cosa): causa efficiente. Nelle frasi passive con una persona (<i>autore, padrone</i>) si parla di complemento d\'agente.'},
+{k:'s',p:2,q:'In quale frase il verbo è di forma attiva?',o:['Il tema fu corretto dalla professoressa.','Gli ospiti sono stati accolti con calore.','I fiori sono sbocciati in primavera.','La cena viene servita alle otto.'],c:2,w:'<b>Sono sbocciati</b>: verbo intransitivo, il soggetto compie l\'azione. Le altre sono passive (<i>fu corretto, sono stati accolti, viene servita</i>).'},
+{k:'s',p:2,q:'In quale frase è presente un verbo riflessivo apparente?',o:['Luca si lava le mani.','Luca si lava con l\'acqua fredda.','Luca e Anna si salutano.','Luca si pente dell\'errore.'],c:0,w:'<b>Si lava le mani</b> = lava le mani a sé: «si» è complemento di termine. Le altre: <i>si lava</i> proprio, <i>si salutano</i> reciproco, <i>si pente</i> pronominale.'},
+{k:'s',p:3,q:'In quale frase «CHE» introduce una conseguenza?',o:['Ti dico che hai ragione.','Il libro che leggo è lungo.','Ho tanta fame che mangerei un elefante.','Che fai stasera?'],c:2,w:'<b>Tanta fame che</b>: dopo il correlativo <i>tanto</i>, «che» introduce una proposizione consecutiva. Le altre: congiunzione, pronome relativo, pronome interrogativo.'},
+{k:'g',p:1,q:'Analizza le particelle in grassetto: complemento oggetto o complemento di termine?',cols:['Oggetto','Termine'],rows:[['<b>Ci</b> hanno invitati a cena.',0],['<b>Le</b> ho scritto una lettera.',1],['<b>Ti</b> ascoltano con attenzione.',0],['<b>Vi</b> ha spiegato la regola.',1]],w:'Test: <b>«noi / te»</b> (oggetto) oppure <b>«a lei / a voi»</b> (termine). <i>Le</i> singolare = a lei: termine.'},
+{k:'g',p:1,q:'Analizza le parole in maiuscolo: quale complemento sono?',cols:['Oggetto','Termine','Specificazione','Agente'],rows:[['Ho salutato <b>TUTTI I VICINI</b>.',0],['Ho dato le chiavi <b>AL PORTIERE</b>.',1],['La porta <b>DEL GARAGE</b> è rotta.',2],['Il portone fu aperto <b>DALLA PORTINAIA</b>.',3]],w:'Chiedi al verbo: <b>chi?</b> (oggetto) · <b>a chi?</b> (termine) · <b>di che cosa?</b> (specificazione) · <b>da chi?</b> con il passivo (agente).'},
+{k:'g',p:3,q:'Analizza la parola «CHE» in ciascuna frase.',cols:['Pronome relativo','Congiunzione','Interrogativo / esclamativo'],rows:[['Il vestito <b>che</b> ho comprato è rosso.',0],['<b>Che</b> bella sorpresa!',2],['Penso <b>che</b> tu abbia ragione.',1]],w:'Se puoi scrivere «il quale» è pronome relativo. Se annuncia una domanda o un\'esclamazione è interrogativo/esclamativo. Altrimenti è congiunzione.'},
+{k:'g',p:2,q:'Indica la forma del verbo in ciascuna frase.',cols:['Attiva','Passiva','Riflessiva'],rows:[['Il ladro fu inseguito dalla polizia.',1],['Anna si è pettinata davanti allo specchio.',2],['Le foglie cadono in autunno.',0],['Il ponte è stato costruito nel Settecento.',1],['Marco ha scritto una lettera.',0]],w:'<b>Passiva</b>: il soggetto subisce. <b>Riflessiva</b>: l\'azione torna su chi la compie. <b>Attiva</b>: il soggetto compie l\'azione.'},
+{k:'g',p:4,q:'La parola <b>CALDO</b> è polisemica. Individua il significato in ciascuna frase.',cols:['Di alta temperatura','Affettuoso','Recente, attuale','Acceso, vivace'],rows:[['Ho preparato un tè <b>caldo</b>.',0],['Ci hanno dato un <b>caldo</b> benvenuto.',1],['Ecco le ultime notizie <b>calde</b> di oggi.',2],['Ne è nata una <b>calda</b> discussione.',3]],w:'Il significato dipende dal nome vicino. Prova a sostituire con un sinonimo: <i>bollente, cordiale, fresche, accesa</i>.'},
+{k:'g',p:4,q:'Indica come è usata la parola <b>RADICE</b>.',cols:['Specialistico','Metaforico','Proprio'],rows:[['La <b>radice</b> della pianta è molto profonda.',2],['La <b>radice</b> quadrata di 9 è 3.',0],['Ha ritrovato le sue <b>radici</b> tornando al paese.',1]],w:'<b>Proprio</b>: la parte della pianta. <b>Specialistico</b>: termine della matematica. <b>Metaforico</b>: le origini di una persona.'}
+];
+var f=document.getElementById('f'),h='';
+Q.forEach(function(x,i){
+var pts=x.k=='s'?1:x.rows.length;x.pts=pts;
+h+='<div class="q" id="q'+i+'"><div class="h"><span>Domanda '+(i+1)+' · '+P[x.p]+'</span><span>'+pts+(pts==1?' punto':' punti')+'</span></div><div class="t">'+x.q+'</div>';
+if(x.k=='s'){x.o.forEach(function(o,j){h+='<label><input type="radio" name="q'+i+'" value="'+j+'">'+o+'</label>'})}
+else{h+='<div class="tw"><table><tr><th></th>'+x.cols.map(function(c){return'<th>'+c+'</th>'}).join('')+'</tr>';
+x.rows.forEach(function(r,k){h+='<tr id="q'+i+'r'+k+'"><td>'+r[0]+'</td>'+x.cols.map(function(c,j){return'<td><input type="radio" name="q'+i+'r'+k+'" value="'+j+'"></td>'}).join('')+'</tr>'});
+h+='</table></div>'}
+h+='<div class="w2" id="w'+i+'"></div></div>'});
+f.innerHTML=h;
+function val(n){var e=document.querySelector('input[name="'+n+'"]:checked');return e?+e.value:-1}
+document.getElementById('go').onclick=function(){
+var tot=0,max=0,per=P.map(function(){return[0,0]});
+Q.forEach(function(x,i){var got=0,box=document.getElementById('q'+i),note='';
+if(x.k=='s'){var v=val('q'+i);if(v==x.c)got=1;else note='Risposta corretta: <b>'+x.o[x.c].replace(/<[^>]+>/g,'')+'</b>. '}
+else x.rows.forEach(function(r,k){var v=val('q'+i+'r'+k),tr=document.getElementById('q'+i+'r'+k);
+if(v==r[1]){got++;tr.className='r-ok'}else{tr.className='r-ko';note+='Riga '+(k+1)+': <b>'+x.cols[r[1]]+'</b>. '}});
+box.className='q '+(got==x.pts?'ok':'ko');
+document.getElementById('w'+i).innerHTML=(got==x.pts?'✔ ':'✘ '+note)+'<br>'+x.w;
+tot+=got;max+=x.pts;per[x.p][0]+=got;per[x.p][1]+=x.pts;
+box.querySelectorAll('input').forEach(function(e){e.disabled=true})});
+var r='<div class="big">'+tot+' / '+max+'</div><p>Risultato per argomento:</p>';
+per.forEach(function(p,i){if(!p[1])return;var pc=Math.round(100*p[0]/p[1]);
+r+='<div>'+P[i]+' · '+p[0]+'/'+p[1]+(pc<60?' → da ripassare':'')+'</div><div class="bar"><i style="width:'+pc+'%"></i></div>'});
+r+='<button onclick="location.reload()">Riprova</button>';
+var e=document.getElementById('res');e.innerHTML=r;e.style.display='block';e.scrollIntoView({behavior:'smooth'});
+this.style.display='none'};
+</script>
+</body>
+</html>
