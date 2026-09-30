@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prove di Allenamento – Indice Principale</title>
+<style>
+:root {
+  --bg: #f6f1e7;
+  --ink: #1e1c19;
+  --mute: #7a7367;
+  --card: #fffdf8;
+  --line: #ddd3c0;
+  --acc: #2b6cb0;
+  --acc-hover: #1e4e80;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17161a;
+    --ink: #f3efe6;
+    --mute: #9d978a;
+    --card: #232127;
+    --line: #3a3740;
+    --acc: #6fb0f0;
+    --acc-hover: #4a90e2;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  font-size: clamp(16px, 1.7vw, 19px);
+  line-height: 1.5;
+}
+.w {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+h1 {
+  font-size: clamp(26px, 4vw, 38px);
+  margin: 0.2em 0 0.1em;
+  color: var(--ink);
+}
+.sub {
+  color: var(--mute);
+  margin: 0 0 2em;
+}
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.card {
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+.card:hover {
+  border-color: var(--acc);
+  transform: translateY(-2px);
+}
+.card-info h2 {
+  margin: 0 0 4px 0;
+  font-size: 1.2em;
+}
+.card-info p {
+  margin: 0;
+  font-size: 0.88em;
+  color: var(--mute);
+}
+.btn {
+  background: var(--acc);
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+.card:hover .btn {
+  background: var(--acc-hover);
+}
+</style>
+</head>
+<body>
+<div class="w">
+  <h1>Prove di Allenamento</h1>
+  <p class="sub">Seleziona una prova di allenamento per iniziare l'esercitazione.</p>
+  
+  <div class="grid">
+    <a href="prova_allenamento_A.html.html" class="card">
+      <div class="card-info">
+        <h2>Prova di Allenamento A</h2>
+        <p>Grammatica e lessico</p>
+      </div>
+      <span class="btn">Apri Prova</span>
+    </a>
+
+    <a href="prova_allenamento_B.html.html" class="card">
+      <div class="card-info">
+        <h2>Prova di Allenamento B</h2>
+        <p>Grammatica e lessico</p>
+      </div>
+      <span class="btn">Apri Prova</span>
+    </a>
+
+    <a href="prova_allenamento_C.html.html" class="card">
+      <div class="card-info">
+        <h2>Prova di Allenamento C</h2>
+        <p>Grammatica e lessico</p>
+      </div>
+      <span class="btn">Apri Prova</span>
+    </a>
+
+    <a href="prova_allenamento_D.html.html" class="card">
+      <div class="card-info">
+        <h2>Prova di Allenamento D</h2>
+        <p>Grammatica e lessico</p>
+      </div>
+      <span class="btn">Apri Prova</span>
+    </a>
+  </div>
+</div>
+</body>
+</html>
